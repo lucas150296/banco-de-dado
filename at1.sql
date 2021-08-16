@@ -1,0 +1,24 @@
+create table `at1`.`tipo_local` (`idtipo_lacal` int not null, `hospital` varchar(45) not null,`cliniaca` varchar(45) not null, `UPA` varchar(45) not null);
+create table `at1`.`local_atedimento` (`idlocal_atendimento` int not null, `nome` varchar(50) not null, `cnpj` int not null, `telefone` varchar(10) not null);
+create table `at1`.`medico` (`idmedico` int not null, `nome` varchar(150) not null,`funcao` varchar(45) not null, `local` varchar(10) not null, `turno` varchar(45) not null, `telefone` varchar(45) not null);
+create table `at1`.`funcao` (`idfuncao` int not null, `medico` varchar(45) not null, `enfermeira` varchar(45) not null,`zelador` varchar(45)not null);
+create table `at1`.`endereco` (`rua` varchar(15) not null, `numero` int not null,`bairro` varchar(20) not null, `cep` varchar(8) not null, `cidade` varchar(20) not null);
+create table `at1`.`exame` (`idexame` int not null, `resultado` varchar(45) not null);
+create table `at1`.`diagnostico` (`iddiagnotico` int not null,`status` varchar(1));
+create table `at1`.`pessoa_con` (`nome` varchar(150) not null);
+create table `at1`.`paciente` (`idpaciente` int not null, `nome` varchar(150) not null, `cpf` int not null, `telefone` int not null);
+create table `at1`.`pronturario` (`idpronturario` int not null, `origem_paciente` varchar(45) not null, `locais_atendimento` varchar(45)not null);
+alter table `at1`.`tipo_local` add primary key (`idtipo_lacal`);
+alter table `at1`.`local_atedimento` add primary key (`idlocal_atendimento`);
+alter table `at1`.`medico` add primary key (`idmedico`);
+alter table `at1`.`funcao` add primary key (`idfuncao`);
+alter table `at1`.`exame` add primary key (`idexame`);
+alter table `at1`.`diagnostico` add primary key(`iddiagnotico`);
+alter table `at1`.`paciente` add primary key (`idpaciente`);
+alter table `at1`.`pronturario` add primary key (`idpronturario`);
+alter table `at1`.`local_atedimento` add column `idmedico` int not null;
+alter table `at1`.`paciente` add column `idtipo_lacal` int not null;
+alter table `at1`.`paciente` add column `idmedico` int not null;
+alter table `at1`.`local_atedimento` ADD CONSTRAINT `local_fk_medico` foreign key (`idmedico`) references `at1`.`medico` (`idmedico`);
+alter table `at1`.`paciente`ADD CONSTRAINT `local_atendimento_fk_idlocal_atedimento` foreign key (`idtipo_lacal`) references `at1`.`local_atedimento` (`idlocal_atedimento`);
+alter table `at1`.`paciente` ADD CONSTRAINT `local_atendimento_fk_medico_idmedico` foreign key (`idmedico`) references `at1`.`medico` (`idmedico`)
